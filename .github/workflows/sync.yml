@@ -1,0 +1,40 @@
+name: Sync to S3 & GitHub pages
+description: "Brings the portfolio S3 up-to-date"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+        
+      - name: Configure AWS credentials for authorization
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: 'eu-north-1'
+
+      - name: Deploy to S3
+        run: aws s3 sync ./dist s3://portfolio-exe --delete
+      
+      - name: Deploy to target repository
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.TARGET_REPO_PAT }}
+          publish_dir: ./dist
+          external_repository: somunaexe/somunaexe.github.io
+          publish_branch: pre-build        # the branch to push to in the target repo
+          force_orphan: true
