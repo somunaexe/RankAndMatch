@@ -1,5 +1,5 @@
-name: Sync to S3 & GitHub pages
-description: "Brings the portfolio S3 up-to-date"
+name: Sync to S3
+description: "Brings the website on S3 up-to-date"
 
 on:
   push:
@@ -28,13 +28,5 @@ jobs:
           aws-region: 'eu-north-1'
 
       - name: Deploy to S3
-        run: aws s3 sync ./dist s3://portfolio-exe --delete
+        run: aws s3 sync ./dist s3://rankandmatch --delete
       
-      - name: Deploy to target repository
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          personal_token: ${{ secrets.TARGET_REPO_PAT }}
-          publish_dir: ./dist
-          external_repository: somunaexe/somunaexe.github.io
-          publish_branch: pre-build        # the branch to push to in the target repo
-          force_orphan: true
