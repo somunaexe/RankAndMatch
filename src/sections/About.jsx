@@ -9,13 +9,13 @@ const About = () => {
         if(detail === 'number') {
             setNumberCopied(true)
             setTimeout(() => setNumberCopied(false), 2000);
-            navigator.clipboard.writeText('+447936548807')
+            navigator.clipboard.writeText('+447')
             return
         }
         else if(detail === 'email'){
             setEmailCopied(true)
             setTimeout(() => setEmailCopied(false), 2000);
-            navigator.clipboard.writeText('somunanzenwa@gmail.com')
+            navigator.clipboard.writeText('rankandmatch@gmail.com')
             return
         }
     }

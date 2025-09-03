@@ -11,25 +11,31 @@ export const navLinks = [
     },
     {
       id: 3,
-      name: 'Projects',
-      href: '#projects',
-    },
-    {
-      id: 4,
-      name: 'Reviews',
-      href: '#reviews',
-    },
-    {
-      id: 5,
-      name: 'Work',
-      href: '#work',
-    },
-    {
-      id: 6,
-      name: 'Contact',
-      href: '#contact',
+      name: 'Join a video',
+      href: '#join',
     },
   ];
+
+  export const socialLinks = [
+    {
+      id: 1,
+      name: 'Youtube',
+      href: 'https://www.youtube.com/@rankandmatch',
+      image: 'public/assets/youtube.png',
+    },
+    {
+      id: 2,
+      name: 'Tiktok',
+      href: 'https://www.tiktok.com/@rankandmatch',
+      image: 'public/assets/tiktok.png',
+    },
+    {
+      id: 3,
+      name: 'Instagram',
+      href: 'https://www.instagram.com/rankandmatch',
+      image: 'public/assets/instagram.png',
+    },
+  ]
 export const calculateSizes = (isSmall, isMobile, isTablet) => {
   return {
     deskScale: isSmall ? 0.05 : isMobile ? 0.06 : 0.065,

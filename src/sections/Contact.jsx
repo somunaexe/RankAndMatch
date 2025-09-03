@@ -47,7 +47,7 @@ const Contact = () => {
     }
 
   return (
-    <section className="c-space my-20" id="contact">
+    <section className="c-space my-20" id="join">
         <div className="relative min-h-screen flex items-center justify-center flex-col py-10">
             <img src="/assets/terminal.png" alt="terminal background" className="absolute inset-0 w-full h-full object-cover"/>
             
