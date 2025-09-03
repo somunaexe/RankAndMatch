@@ -25,7 +25,7 @@ const Contact = () => {
             message: form.message,
         }
 
-        const response = await fetch("https://db4zdyqcd6.execute-api.eu-north-1.amazonaws.com/default/",
+        const response = await fetch("https://9rbgl7kyu7.execute-api.eu-north-1.amazonaws.com/dev/",
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
