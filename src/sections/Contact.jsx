@@ -60,7 +60,7 @@ const Contact = () => {
                     Whether you&apos;re looking to build a new website, improve your existing platform, or bring a unique project to life, I&apos;m here to help.
                 </p>
                 {message && (
-                    <p className={`text-lg ${message.hasOwnProperty("message") ? "text-green-500" : "text-red-500"} mt-3 font-semibold`}>{message.message || message.error || ""}</p>
+                    <p className={`text-lg ${"message" in message ? "text-green-500" : "text-red-500"} mt-3 font-semibold`}>{message.message || message.error || ""}</p>
                 )}
                 <form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col space-y-7 z-10 relative">
                     <label className="space-y-3">
