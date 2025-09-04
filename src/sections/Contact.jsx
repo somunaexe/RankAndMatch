@@ -21,7 +21,8 @@ const Contact = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-
+        setMessage({});
+        
         const enquiry = {
             fullName: form.name,
             age: form.age.toString(),
