@@ -15,7 +15,7 @@ const Contact = () => {
 
     
     const handleChange = ({ target: { name, value }}) => {
-        setForm({ ...form, [name]: value.trim() })
+        setForm({ ...form, [name]: value })
     }
 
     const handleSubmit = async (e) => {
@@ -24,11 +24,11 @@ const Contact = () => {
         setMessage({});
         
         const enquiry = {
-            fullName: form.name,
-            age: form.age.toString(),
-            email: form.email,
-            phoneNumber: form.phoneNumber,
-            social: form.social || '',
+            fullName: form.name.trim(),
+            age: form.age.toString().trim(),
+            email: form.email.trim(),
+            phoneNumber: form.phoneNumber.trim(),
+            social: form.social.trim() || '',
         }
 
         const response = await fetch("https://9rbgl7kyu7.execute-api.eu-north-1.amazonaws.com/dev/",
