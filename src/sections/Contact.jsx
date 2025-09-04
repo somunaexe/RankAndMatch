@@ -79,7 +79,7 @@ const Contact = () => {
 
                     <label className="space-y-3">
                         <p className="field-label">Age <span className='text-red-500'>*</span></p>
-                        <input type="text" name="age"  value={form.age} onChange={handleChange} onInput={(e) => {e.target.value = e.target.value.replace(/\D/g, '')}}required className="field-input" placeholder="00"/>
+                        <input type="text" name="age"  value={form.age} onChange={handleChange} onInput={(e) => {e.target.value = e.target.value.replace(/\D/g, '')}}required className="field-input" placeholder="ex., 00"/>
                     </label>
 
                     <label className="space-y-3">
@@ -89,12 +89,12 @@ const Contact = () => {
 
                     <label className="space-y-3">
                         <p className="field-label">Phone Number <span className='text-red-500'>*</span></p>
-                        <input type="tel" name="phoneNumber" value={form.phoneNumber} onChange={handleChange} required rows={5} className="field-input" placeholder="+44 1234 1234"/>
+                        <input type="tel" name="phoneNumber" value={form.phoneNumber} onChange={handleChange} required rows={5} className="field-input" placeholder="ex., +44 1234 1234"/>
                     </label>
 
                     <label className="space-y-3">
                         <p className="field-label">Social(s)</p>
-                        <input type="url" name="social" value={form.social} onChange={handleChange} rows={5} className="field-input" placeholder="https://www.social.com/user"/>
+                        <input type="url" name="social" value={form.social} onChange={handleChange} rows={5} className="field-input" placeholder="ex., https://www.social.com/user"/>
                     </label>
 
                     <button className="field-btn" type="submit" disabled={loading}>
