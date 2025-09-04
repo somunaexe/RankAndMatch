@@ -6,6 +6,7 @@ const Contact = () => {
     const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
         name: '',
+        age: 0,
         email: '',
         phoneNumber: '',
         social: '',
@@ -22,6 +23,7 @@ const Contact = () => {
 
         const enquiry = {
             fullName: form.name,
+            age: form.age,
             email: form.email,
             phoneNumber: form.phoneNumber,
             social: form.social,
@@ -41,6 +43,7 @@ const Contact = () => {
         // reset form fields
         setForm({
             name: "",
+            age: "",
             email: "",
             phoneNumber: "",
             social: "",
@@ -56,7 +59,6 @@ const Contact = () => {
             
             <div className="contact-container">
                 <h3 className="head-text">Join Us</h3>
-                {/* Rebuilding to involve change */}
                 <p className="text-lg text-white-600 mt-3">
                     If you would like to be part of a YouTube video as a Rank and Match contestant, please fill the form join us❗️
                 </p>
@@ -65,23 +67,28 @@ const Contact = () => {
                 )}
                 <form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col space-y-7 z-10 relative">
                     <label className="space-y-3">
-                        <span className="field-label">Full Name *</span>
+                        <p className="field-label">Full Name <span className='text-red-500'>*</span></p>
                         <input type="text" name="name" value={form.name} onChange={handleChange} required className="field-input" placeholder="ex., John Doe"/>
                     </label>
 
                     <label className="space-y-3">
-                        <span className="field-label">Email address *</span>
+                        <p className="field-label">Age <span className='text-red-500'>*</span></p>
+                        <input type="text" name="age"  value={form.age} onChange={handleChange} onInput={(e) => {e.target.value = e.target.value.replace(/\D/g, '')}}required className="field-input" placeholder="00"/>
+                    </label>
+
+                    <label className="space-y-3">
+                        <p className="field-label">Email address <span className='text-red-500'>*</span></p>
                         <input type="email" name="email" value={form.email} onChange={handleChange} required className="field-input" placeholder="ex., johndoe@gmail.com"/>
                     </label>
 
                     <label className="space-y-3">
-                        <span className="field-label">Phone Number*</span>
+                        <p className="field-label">Phone Number <span className='text-red-500'>*</span></p>
                         <input type="tel" name="phoneNumber" value={form.phoneNumber} onChange={handleChange} required rows={5} className="field-input" placeholder="+44 1234 1234"/>
                     </label>
 
                     <label className="space-y-3">
-                        <span className="field-label">Social</span>
-                        <input type="text" name="social" value={form.social} onChange={handleChange} rows={5} className="field-input" placeholder="https://www.instagram.com/user"/>
+                        <p className="field-label">Social(s)</p>
+                        <input type="url" name="social" value={form.social} onChange={handleChange} rows={5} className="field-input" placeholder="https://www.social.com/user"/>
                     </label>
 
                     <button className="field-btn" type="submit" disabled={loading}>
