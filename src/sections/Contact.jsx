@@ -55,9 +55,9 @@ const Contact = () => {
             <img src="/assets/terminal.png" alt="terminal background" className="absolute inset-0 w-full h-full object-cover"/>
             
             <div className="contact-container">
-                <h3 className="head-text">Let&apos;s talk</h3>
+                <h3 className="head-text">Join Us</h3>
                 <p className="text-lg text-white-600 mt-3">
-                    Whether you&apos;re looking to build a new website, improve your existing platform, or bring a unique project to life, I&apos;m here to help.
+                    If you would like to be part of a YouTube video as a Rank and Match contestant, please fill the form join us❗️
                 </p>
                 {message && (
                     <p className={`text-lg ${"message" in message ? "text-green-500" : "text-red-500"} mt-3 font-semibold`}>{message.message || message.error || ""}</p>
