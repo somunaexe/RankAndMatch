@@ -56,6 +56,7 @@ const Contact = () => {
             
             <div className="contact-container">
                 <h3 className="head-text">Join Us</h3>
+                {/* Rebuilding to involve change */}
                 <p className="text-lg text-white-600 mt-3">
                     If you would like to be part of a YouTube video as a Rank and Match contestant, please fill the form join us❗️
                 </p>
