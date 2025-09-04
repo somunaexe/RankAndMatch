@@ -2,17 +2,18 @@ import { useRef, useState } from 'react'
 
 const Contact = () => {
     const formRef = useRef();
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState({});
     const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
         name: '',
         email: '',
-        message: '',
+        phoneNumber: '',
+        social: '',
     })
 
     
     const handleChange = ({ target: { name, value }}) => {
-        setForm({ ...form, [name]: value })
+        setForm({ ...form, [name]: value.trim() })
     }
 
     const handleSubmit = async (e) => {
@@ -22,7 +23,8 @@ const Contact = () => {
         const enquiry = {
             fullName: form.name,
             email: form.email,
-            message: form.message,
+            phoneNumber: form.phoneNumber,
+            social: form.social,
         }
 
         const response = await fetch("https://9rbgl7kyu7.execute-api.eu-north-1.amazonaws.com/dev/",
@@ -34,13 +36,14 @@ const Contact = () => {
         );
 
         const data = await response.json();
-        setMessage(data.message || "");
+        setMessage(data || "");
 
         // reset form fields
         setForm({
             name: "",
             email: "",
-            message: "",
+            phoneNumber: "",
+            social: "",
         });
 
         setLoading(false);
@@ -57,26 +60,31 @@ const Contact = () => {
                     Whether you&apos;re looking to build a new website, improve your existing platform, or bring a unique project to life, I&apos;m here to help.
                 </p>
                 {message && (
-                    <p className="text-lg text-green-500 mt-3 font-semibold">{message}</p>
+                    <p className={`text-lg ${message.hasOwnProperty("message") ? "text-green-500" : "text-red-500"} mt-3 font-semibold`}>{message.message || message.error || ""}</p>
                 )}
                 <form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col space-y-7 z-10 relative">
                     <label className="space-y-3">
-                        <span className="field-label">Full Name</span>
+                        <span className="field-label">Full Name *</span>
                         <input type="text" name="name" value={form.name} onChange={handleChange} required className="field-input" placeholder="ex., John Doe"/>
                     </label>
 
                     <label className="space-y-3">
-                        <span className="field-label">Email address</span>
+                        <span className="field-label">Email address *</span>
                         <input type="email" name="email" value={form.email} onChange={handleChange} required className="field-input" placeholder="ex., johndoe@gmail.com"/>
                     </label>
 
                     <label className="space-y-3">
-                        <span className="field-label">Your message</span>
-                        <textarea name="message" value={form.message} onChange={handleChange} required rows={5} className="field-input" placeholder="Hi, I wanna give you a job... 🙂"/>
+                        <span className="field-label">Phone Number*</span>
+                        <input type="tel" name="phoneNumber" value={form.phoneNumber} onChange={handleChange} required rows={5} className="field-input" placeholder="+44 1234 1234"/>
+                    </label>
+
+                    <label className="space-y-3">
+                        <span className="field-label">Social</span>
+                        <input type="text" name="social" value={form.social} onChange={handleChange} rows={5} className="field-input" placeholder="https://www.instagram.com/user"/>
                     </label>
 
                     <button className="field-btn" type="submit" disabled={loading}>
-                        {loading ? 'Sending...' : 'Send message'}
+                        {loading ? 'Sending...' : 'Show your interest'}
                         <img src="/assets/arrow-up.png" alt="arrow-up" className="field-btn_arrow"/>
                     </button>
                 </form>

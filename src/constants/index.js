@@ -21,19 +21,19 @@ export const navLinks = [
       id: 1,
       name: 'Youtube',
       href: 'https://www.youtube.com/@rankandmatch',
-      image: 'public/assets/youtube.png',
+      image: '/assets/youtube.png',
     },
     {
       id: 2,
       name: 'Tiktok',
       href: 'https://www.tiktok.com/@rankandmatch',
-      image: 'public/assets/tiktok.png',
+      image: '/assets/tiktok.png',
     },
     {
       id: 3,
       name: 'Instagram',
       href: 'https://www.instagram.com/rankandmatch',
-      image: 'public/assets/instagram.png',
+      image: '/assets/instagram.png',
     },
   ]
 export const calculateSizes = (isSmall, isMobile, isTablet) => {
