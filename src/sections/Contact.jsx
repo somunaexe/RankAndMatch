@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 
 const Contact = () => {
     const formRef = useRef();
+    const join = document.getElementById("join");
     const [message, setMessage] = useState({});
     const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
@@ -23,10 +24,10 @@ const Contact = () => {
 
         const enquiry = {
             fullName: form.name,
-            age: form.age,
+            age: form.age.toString(),
             email: form.email,
             phoneNumber: form.phoneNumber,
-            social: form.social,
+            social: form.social || '',
         }
 
         const response = await fetch("https://9rbgl7kyu7.execute-api.eu-north-1.amazonaws.com/dev/",
@@ -39,6 +40,7 @@ const Contact = () => {
 
         const data = await response.json();
         setMessage(data || "");
+        join?.scrollIntoView()
 
         // reset form fields
         setForm({
@@ -62,9 +64,12 @@ const Contact = () => {
                 <p className="text-lg text-white-600 mt-3">
                     If you would like to be part of a YouTube video as a Rank and Match contestant, please fill the form join us❗️
                 </p>
+
+                {/* CONFIRMATION OR FAILURE MESSAGE */}
                 {message && (
-                    <p className={`text-lg ${"message" in message ? "text-green-500" : "text-red-500"} mt-3 font-semibold`}>{message.message || message.error || ""}</p>
+                    <p id="message" className={`text-lg ${"message" in message ? "text-green-500" : "text-red-500"} mt-3 font-semibold`}>{message.message || message.error || ""}</p>
                 )}
+
                 <form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col space-y-7 z-10 relative">
                     <label className="space-y-3">
                         <p className="field-label">Full Name <span className='text-red-500'>*</span></p>
