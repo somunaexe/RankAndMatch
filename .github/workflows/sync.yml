@@ -36,4 +36,9 @@ jobs:
       - name: Deploy other files to S3
         run: aws s3 sync ./dist s3://rankandmatch/ --exclude "*.html" --exclude "*.js" --exclude "*.css" --cache-control "max-age=31536000, immutable"
 
+      - name: Invalidate HTML in CloudFront
+        if: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+        run: |
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/index.html"
+
       
