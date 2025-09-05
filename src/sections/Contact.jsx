@@ -30,7 +30,7 @@ const Contact = () => {
             phoneNumber: form.phoneNumber.trim(),
             social: form.social.trim() || '',
         }
-// fixing mime 
+// fixing mime
         const response = await fetch(import.meta.env.VITE_API_URL,
             {
                 method: "POST",
