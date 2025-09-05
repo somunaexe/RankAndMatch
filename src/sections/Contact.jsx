@@ -31,7 +31,7 @@ const Contact = () => {
             social: form.social.trim() || '',
         }
 
-        const response = await fetch("https://9rbgl7kyu7.execute-api.eu-north-1.amazonaws.com/dev/",
+        const response = await fetch(import.meta.env.VITE_API_URL,
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
