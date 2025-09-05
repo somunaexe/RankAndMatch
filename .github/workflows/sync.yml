@@ -31,4 +31,4 @@ jobs:
       - name: Deploy HTML files to S3
         run: |
           aws s3 cp ./dist/index.html s3://rankandmatch/ --cache-control "no-store, no-cache, must-revalidate" --content-type "text/html" --acl public-read
-          aws s3 sync ./dist s3://rankandmatch --exclude "index.html" --acl public-read
+          aws s3 sync ./dist s3://rankandmatch --exclude "index.html"
