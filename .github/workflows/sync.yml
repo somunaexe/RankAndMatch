@@ -28,5 +28,9 @@ jobs:
           aws-region: 'eu-north-1'
 
       - name: Deploy to S3
-        run: aws s3 sync ./dist s3://rankandmatch --delete
+        run: |
+          aws s3 cp ./dist s3://rankandmatch/ --recursive --exclude "*" --include "*.html" --cache-control "no-store, no-cache, must-revalidate" --content-type "text/html"
+          aws s3 cp ./dist s3://rankandmatch/ --recursive --exclude "*" --include "*.js" --include "*.css" --cache-control "max-age=31536000, immutable"
+          aws s3 sync ./dist s3://rankandmatch/ --recursive --exclude "*.html" --exclude "*.js" --exclude "*.css" --cache-control "max-age=31536000, immutable"
+
       
