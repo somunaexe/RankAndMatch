@@ -30,7 +30,7 @@ jobs:
       - name: Deploy HTML files to S3
         run: |
           echo "Uploading HTML"
-          aws s3 cp ./dist s3://rankandmatch/ --recursive --exclude "*" --include "*.html" --cache-control "no-store, no-cache, must-revalidate" --content-type "text/html"
+          aws s3 cp ./dist s3://rankandmatch/ --recursive --exclude "*" --include "*.html" --include "*.js" --cache-control "no-store, no-cache, must-revalidate" --content-type "text/html"
         
       - name: Deploy JS and CSS files to S3
         run: aws s3 cp ./dist s3://rankandmatch/ --recursive --exclude "*" --include "*.js" --include "*.css" --cache-control "max-age=31536000, immutable"
