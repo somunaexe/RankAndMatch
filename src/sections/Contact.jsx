@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 
 const Contact = () => {
+    const version = 2;
     const formRef = useRef();
     const join = document.getElementById("join");
     const [message, setMessage] = useState({});
@@ -30,7 +31,6 @@ const Contact = () => {
             phoneNumber: form.phoneNumber.trim(),
             social: form.social.trim() || '',
         }
-// fixing mime
         const response = await fetch(import.meta.env.VITE_API_URL,
             {
                 method: "POST",
