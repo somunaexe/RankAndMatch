@@ -18,7 +18,7 @@ jobs:
         run: npm install
 
       - name: Build
-        run: npm run build
+        run: rm -rf dist && npm run build
         
       - name: Configure AWS credentials for authorization
         uses: aws-actions/configure-aws-credentials@v2
@@ -26,7 +26,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: 'eu-north-1'
-
 
       - name: Deploy HTML files to S3
         run: |
