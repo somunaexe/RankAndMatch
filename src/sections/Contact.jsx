@@ -31,7 +31,7 @@ const Contact = () => {
             phoneNumber: form.phoneNumber.trim(),
             social: form.social.trim() || '',
         }
-        const response = await fetch(import.meta.env.VITE_API_URL,
+        const response = await fetch("https://9rbgl7kyu7.execute-api.eu-north-1.amazonaws.com/dev",
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
