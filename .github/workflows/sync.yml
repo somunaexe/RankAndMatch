@@ -30,5 +30,5 @@ jobs:
       - name: Deploy HTML files to S3
         run: |
           aws s3 cp ./dist/index.html s3://rankandmatch/ --cache-control "no-store, no-cache, must-revalidate" --content-type "text/html"
-          # aws s3 cp ./dist s3://rankandmatch --exclude "*" --include "*.css" --delete --content-type "text/css"
-          aws s3 sync ./dist s3://rankandmatch --exclude "index.html" --exclude "*.css" --delete
+          aws s3 cp ./dist s3://rankandmatch/ --recursive --exclude "*" --include "*.css" --cache-control "max-age=31536000, immutable" --content-type "text/css"
+          aws s3 sync ./dist s3://rankandmatch/ --exclude "index.html" --exclude "*.css" --cache-control "max-age=31536000, immutable" --delete
