@@ -27,6 +27,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: 'eu-north-1'
 
+
       - name: Deploy HTML files to S3
         run: |
           aws s3 cp ./dist/index.html s3://rankandmatch/ --cache-control "no-store, no-cache, must-revalidate" --content-type "text/html"
