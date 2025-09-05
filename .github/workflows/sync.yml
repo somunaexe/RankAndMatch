@@ -39,6 +39,6 @@ jobs:
         run: aws s3 cp ./dist s3://rankandmatch/ --recursive --exclude "*" --include "*.js" --include "*.css" --cache-control "max-age=31536000, immutable"
 
       - name: Deploy other files to S3
-        run: aws s3 sync ./dist s3://rankandmatch/ --recursive --exclude "*.html" --exclude "*.js" --exclude "*.css" --cache-control "max-age=31536000, immutable"
+        run: aws s3 sync ./dist s3://rankandmatch/ --exclude "*.html" --exclude "*.js" --exclude "*.css" --cache-control "max-age=31536000, immutable"
 
       
