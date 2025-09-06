@@ -5,7 +5,7 @@ const Admin = () => {
     const [passed, setPassed] = useState(false);
     const [interests, setInterests] = useState([]);
     const loadInterests = async (e) => {
-        const response = await fetch(import.meta.env.VITE_API_URL,
+        const response = await fetch("https://9rbgl7kyu7.execute-api.eu-north-1.amazonaws.com/dev",
             {
                 method: "GET",
                 headers: { "Accept" : "application/json" }
