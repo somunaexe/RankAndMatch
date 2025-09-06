@@ -31,6 +31,7 @@ const Contact = () => {
             phoneNumber: form.phoneNumber.trim(),
             social: form.social.trim() || '',
         }
+        
         const response = await fetch("https://9rbgl7kyu7.execute-api.eu-north-1.amazonaws.com/dev",
             {
                 method: "POST",
