@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react'
 
 const Contact = () => {
-    const version = 2;
     const formRef = useRef();
     const join = document.getElementById("join");
     const [message, setMessage] = useState({});
@@ -12,6 +11,7 @@ const Contact = () => {
         email: '',
         phoneNumber: '',
         social: '',
+        allergies: '',
     })
 
     
@@ -21,6 +21,7 @@ const Contact = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(form)
         setLoading(true);
         setMessage({});
         
@@ -30,6 +31,7 @@ const Contact = () => {
             email: form.email.trim(),
             phoneNumber: form.phoneNumber.trim(),
             social: form.social.trim() || '',
+            allergies: form.allergies.trim() || '',
         }
         
         const response = await fetch("https://9rbgl7kyu7.execute-api.eu-north-1.amazonaws.com/dev",
@@ -51,6 +53,7 @@ const Contact = () => {
             email: "",
             phoneNumber: "",
             social: "",
+            allergies: "",
         });
 
         setLoading(false);
@@ -96,6 +99,11 @@ const Contact = () => {
                     <label className="space-y-3">
                         <p className="field-label">Social(s)</p>
                         <input type="url" name="social" value={form.social} onChange={handleChange} rows={5} className="field-input" placeholder="ex., https://www.social.com/user"/>
+                    </label>
+
+                    <label className="space-y-3">
+                        <p className="field-label">Allergies</p>
+                        <input type="text" name="allergies" value={form.allergies} onChange={handleChange} rows={5} className="field-input" placeholder="ex., nuts"/>
                     </label>
 
                     <button className="field-btn" type="submit" disabled={loading}>
