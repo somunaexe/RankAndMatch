@@ -66,7 +66,7 @@ export const calculateSizes = (isSmall, isMobile, isTablet) => {
   };
 };
 
-"MainTopics" = [
+export const MainTopics = [
   { "S/N": 1, "Topic": "Snapchat private story names", "Ranked": false, "R-Uploaded": false, "Matched": false, "M-Uploaded": false },
   { "S/N": 2, "Topic": "Period simulator scores", "Ranked": false, "R-Uploaded": false, "Matched": false, "M-Uploaded": false },
   { "S/N": 3, "Topic": "3 Hot takes", "Ranked": false, "R-Uploaded": false, "Matched": false, "M-Uploaded": false },
