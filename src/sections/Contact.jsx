@@ -92,7 +92,7 @@ const Contact = () => {
                     </label>
 
                     <label className="space-y-3">
-                        <p className="field-label">Phone Number <span className='text-red-500'>*</span></p>
+                        <p className="field-label">Phone Number <span className='text-red-500'>* </span>(include the country code)</p>
                         <input type="tel" name="phoneNumber" value={form.phoneNumber} onChange={handleChange} required rows={5} className="field-input" placeholder="ex., +44 1234 1234"/>
                     </label>
 

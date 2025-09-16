@@ -1,4 +1,5 @@
 import Navbar from './sections/Navbar'
+import { navLinks } from "./constants/index.js"
 // import Hero from './sections/Hero'
 // import About from './sections/About'
 // import Projects from './sections/Projects'
@@ -9,7 +10,7 @@ import Footer from './sections/Footer'
 const App = () => {
   return (
     <main className='max-w-7xl mx-auto'>
-      <Navbar />
+      <Navbar navLinks={navLinks} admin={false}/>
       {/* <Hero /> */}
       {/* <About /> */}
       {/* <Projects /> */}
