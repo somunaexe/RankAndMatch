@@ -31,7 +31,7 @@ const Interests = () => {
             <section id="interests" className="c-space my-20">
                 <h3 className="head-text">Interests</h3>
                 <hr/><br/>
-                {interests && (
+                {interests.length > 0 && (
                     <div className="overflow-x-auto">
                         {/* <input type="text" name="search" placeholder="Search for an interest" 
                             className='
@@ -81,7 +81,11 @@ const Interests = () => {
                                 </tbody>
                             </table>
                         </div>
-                    )}
+                    )
+                }
+                {interests.length < 1 && (
+                    <p className="text-white-600 text-3xl">Loading...</p>
+                )} 
             </section>
         </div>
     )
