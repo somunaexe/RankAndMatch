@@ -1,10 +1,12 @@
 import { useRef, useState } from 'react'
+import { useParams } from 'react-router';
 
 const ConsentForm = () => {
     const formRef = useRef();
     const consent = document.getElementById("consent");
     const [message, setMessage] = useState({});
     const [loading, setLoading] = useState(false)
+    const params = useParams()
     const [form, setForm] = useState({
         name: '',
         age: '',

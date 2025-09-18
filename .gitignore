@@ -1,4 +1,4 @@
-.env
+.env*
 node_modules/
 dist
 # Byte-compiled / optimized / DLL files
