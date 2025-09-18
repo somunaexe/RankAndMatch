@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import Admin from './admin/Admin.jsx'
 import { BrowserRouter, Routes, Route } from 'react-router'
-import ConsentsForm from './sections/ConsentForm.jsx'
+// import ConsentsForm from './sections/ConsentForm.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
