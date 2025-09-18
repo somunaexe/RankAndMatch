@@ -31,13 +31,11 @@ const Interests = () => {
     }
 
     const requestConsent = async(e) => {
-        setTopicId('')
-        setRole('')
-
-        fetch("https://friendly-system-j6qjvg95j7qhjp94-5173.app.github.dev/admin",
+        console.log(`${currentInterestId},\n ${email},\n${timestamp}, \n${topicId}\n${role}`)
+        fetch("https://friendly-system-j6qjvg95j7qhjp94-3000.app.github.dev/admin",
             {
                 method: "POST",
-                headers: { "Accept" : "application/json" },
+                headers: { "Content-Type" : "application/json" },
                 body: JSON.stringify({interestId: currentInterestId, timestamp: timestamp, email: email, topicId: topicId.trim(), role: role})
             }
         ).then(async (res) => {
@@ -48,6 +46,8 @@ const Interests = () => {
             .catch(err => console.error("Error:", err));
         setEmail('')
         setTimestamp('')
+        setTopicId('')
+        setRole('')
     }
 
     useEffect(() =>{

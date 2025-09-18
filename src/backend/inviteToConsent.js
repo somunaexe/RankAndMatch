@@ -1,15 +1,25 @@
 import nodemailer from 'nodemailer'
 import express from 'express'
+import cors from 'cors'
 import dotenv from "dotenv";
 dotenv.config();
-
+console.log("print")
 const app = express()
+// Allow requests from your frontend origin
+app.use(cors({
+  origin: 'https://friendly-system-j6qjvg95j7qhjp94-5173.app.github.dev',
+  methods:['GET','OPTIONS','POST'],
+  credentials: true
+}));
 app.use(express.json())
 
 app.post('/admin', async (req, res) =>{
-    const { interestId, timestamp, email, topicId, role } = req.body;
+    console.log('Request body:', req.body); // <--- log incoming data
+
 
     try {
+    const { interestId, timestamp, email, topicId, role } = req.body;
+
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
@@ -21,12 +31,12 @@ app.post('/admin', async (req, res) =>{
         const mailOptions = {
             from: process.env.EMAIL_USER,
             to: email,
-            subject: "Click the link to join a video",
+            subject: "Fill the consent form",
             text: `Hey! Please paste the link rankandmatch.com/consent?topicId=${topicId}&role=${role}&interest=${interestId}${timestamp} in your browser so you can fill the consent form. After completing this, you can be casted.`,
             html: `
                 <div style="font-family: Arial, sans-serif; color:#111;">
-                    <h1 style="color:#E11D48;">Welcome!</h1>
-                    <p>Click the button to fill the consent. After completing the you can be casted:</p>
+                    <h1 style="color:#E11D48;">Hi!</h1>
+                    <p>Click the button to fill the consent form. Once this is completed, you will be casted:</p>
                     <p>
                     <a href="rankandmatch.com/consent?topicId=${topicId}&role=${role}&interest=${interestId}${timestamp}" 
                         style="display:inline-block;padding:12px 20px;background:#ef4444;color:#fff;border-radius:8px;text-decoration:none;">
