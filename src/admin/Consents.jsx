@@ -25,11 +25,11 @@ const Consents = () => {
     },[])
     return (
         <div>
-            <p className="text-white-600">Consent</p>
+            <h4 className="text-white-600">Consent</h4>
             <section className="c-space my-20" id="consents">
                 {consents && (
                     consents.map((consent, index) => {
-                        const { consentId, timestamp, fullName, age, email, phoneNumber, social} = consent;
+                        const { consentId, topic, role} = consent;
                         return (
                             <div key={consentId || index}>
                                 <p className="text-white-600">{fullName}</p>

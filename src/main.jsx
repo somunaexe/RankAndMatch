@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import Admin from './admin/Admin.jsx'
 import { BrowserRouter, Routes, Route } from 'react-router'
-// import ConsentsForm from './sections/ConsentForm.jsx'
+import ConsentsForm from './sections/ConsentForm.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,7 +17,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="*" element={<App />} />
 
         {/* Page for casted members */}
-        {/* <Route path="consent" element={<ConsentsForm />} /> */}
+        <Route path="consent" element={<ConsentsForm />} />
 
         {/* ADMIN Pages for Somuna and Wunmi */}
         <Route path="/admin/*" element={<Admin />} />
