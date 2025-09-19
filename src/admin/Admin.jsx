@@ -27,8 +27,8 @@ const Admin = () => {
                 <>
                     <Navbar navLinks={adminLinks} />
                     <Interests />
-                    {/* <Consents /> */}
-                    {/* <Topics /> */}
+                    <Consents /> 
+                    <Topics />
                 </>
             }
         </main>

@@ -3,7 +3,6 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from "dotenv";
 dotenv.config();
-console.log("print")
 const app = express()
 // Allow requests from your frontend origin
 app.use(cors({
@@ -16,10 +15,15 @@ app.use(express.json())
 app.post('/admin', async (req, res) =>{
     console.log('Request body:', req.body); // <--- log incoming data
 
-
     try {
-    const { interestId, timestamp, email, topicId, role } = req.body;
+        const { interestId, email, topicId, role, currentTime} = req.body;
 
+        // check required fields
+        if (!interestId || !email || !topicId || !role || !currentTime) {
+            return res.status(400).json({
+            success: false, error: "Missing required parameters",
+            });
+        }
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
@@ -27,18 +31,19 @@ app.post('/admin', async (req, res) =>{
                 pass: process.env.EMAIL_PASSWORD,
             }
         })
-
+        console.log("ton")
+        console.log({topicId: topicId, role: role, interestId: interestId, currentTime: currentTime});
         const mailOptions = {
             from: process.env.EMAIL_USER,
             to: email,
             subject: "Fill the consent form",
-            text: `Hey! Please paste the link rankandmatch.com/consent?topicId=${topicId}&role=${role}&interest=${interestId}${timestamp} in your browser so you can fill the consent form. After completing this, you can be casted.`,
+            text: `Hey! Please paste the link rankandmatch.com/consent?topicId=${topicId}&role=${role}&interestId=${interestId}&timeInvited=${currentTime} in your browser so you can fill the consent form. After completing this, you can be casted.`,
             html: `
                 <div style="font-family: Arial, sans-serif; color:#111;">
                     <h1 style="color:#E11D48;">Hi!</h1>
                     <p>Click the button to fill the consent form. Once this is completed, you will be casted:</p>
                     <p>
-                    <a href="rankandmatch.com/consent?topicId=${topicId}&role=${role}&interest=${interestId}${timestamp}" 
+                    <a href="rankandmatch.com/consent?topicId=${topicId}&role=${role}&interestId=${interestId}&timeInvited=${currentTime}" 
                         style="display:inline-block;padding:12px 20px;background:#ef4444;color:#fff;border-radius:8px;text-decoration:none;">
                         Join the show
                     </a>
@@ -49,11 +54,16 @@ app.post('/admin', async (req, res) =>{
         };
 
         // Send
-        await transporter.sendMail(mailOptions);
+        try {
+            await transporter.sendMail(mailOptions);
+            res.json({ success: true, message: "Email sent successfully" });
+        } catch (mailErr) {
+            console.error("Nodemailer failed:", mailErr);
+            return res.status(500).json({ success: false, error: "Email send failed" });
+        }
 
-        res.json({ success: true, message: "Email sent successfully" });
     } catch (err) {
-        console.error(err);
+        console.error(`${err} tried sending email`);
         res.status(500).json({ success: false, error: err.message });
     }
 })

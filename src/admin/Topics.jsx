@@ -3,6 +3,7 @@ import { format } from "date-fns"
 
 const Topics = () => {
     const [topics, setTopics] = useState([]);
+    const [loaded, setLoaded] = useState(false)
     const theadClass = "border border-gray-300 px-4 py-2 text-white-600"
     const loadTopics = async (e) => {
         const response = await fetch("https://m0umxkjpy6.execute-api.eu-north-1.amazonaws.com/dev",
@@ -20,6 +21,7 @@ const Topics = () => {
         const sortedTopics = data.topics.sort((a,b) => new Number(a.serialNumber) - new Number(b.serialNumber))
         console.log(sortedTopics)
         setTopics(sortedTopics);
+        setLoaded(true)
     }
 
     useEffect(() =>{
@@ -97,8 +99,11 @@ const Topics = () => {
                         </div>
                     )
                 }
-                {topics.length < 1 && (
+                {topics.length < 1 && !loaded && (
                     <p className="text-white-600 text-3xl">Loading...</p>
+                )} 
+                {topics.length < 1 && loaded && (
+                    <p className="text-white-600 text-3xl">No topics found</p>
                 )} 
             </section>
         </div>

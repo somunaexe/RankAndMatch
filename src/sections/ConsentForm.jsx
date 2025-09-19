@@ -1,12 +1,62 @@
-import { useRef, useState } from 'react'
-import { useParams } from 'react-router';
+import { useRef, useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom';
+import UnauthConsent from '../components/UnauthConsent';
 
 const ConsentForm = () => {
+    const [params] = useSearchParams()
+    const [validated, setValidated] = useState(null)
+    const [err, setErr] = useState(null)
+    // console.log(validated)
+    const validateToken = async () => {
+        const interest = params.get("interestId");
+        const timeInvited = params.get("timeInvited");
+        const topicId = params.get("topicId")
+        const role = params.get("role")
+        console.log(validated)
+
+        if (!interest || !timeInvited || !topicId || !role) {
+            setValidated(false); // missing required params
+            return;
+        }
+        console.log(`after finding keys: ${validated}`)
+
+        // check if more than a week has passed
+        const diffMs = new Date() - new Date(timeInvited);
+        const diffDays = diffMs / (1000 * 60 * 60 * 24);
+            console.log(diffDays)
+        if (diffDays >= 7) {
+            setValidated(false); // link expired
+            return;
+        }
+        console.log(`after checking date: ${validated}`)
+
+        try {
+            const response = await fetch(`https://x12ex8za7c.execute-api.eu-north-1.amazonaws.com/dev?interestId=${interest}`,
+                {
+                    method: "GET", 
+                    headers: { "Accept": "application/json" }
+                }
+            );
+            const data = await response.json();
+
+            // make sure API returns a boolean
+            console.log(data)
+            setValidated(!!data.interestIdValid);
+        } catch (err) {
+            console.error("Token validation failed:", err);
+            setErr(err)
+            setValidated(false);
+        }
+    };
+
+    useEffect(() =>{
+        validateToken()
+    },[params])
+    
     const formRef = useRef();
     const consent = document.getElementById("consent");
     const [message, setMessage] = useState({});
     const [loading, setLoading] = useState(false)
-    const params = useParams()
     const [form, setForm] = useState({
         name: '',
         age: '',
@@ -50,6 +100,11 @@ const ConsentForm = () => {
                 guardianAllergies: form.guardianAllergies.trim() || '',
             }
         }
+        consentApplication = {
+            ...consentApplication,
+            topicId: params.get('topicId'),
+            role: params.get('role'),
+        }
 
         const response = await fetch("https://9llxstbhji.execute-api.eu-north-1.amazonaws.com/dev",
             {
@@ -80,7 +135,14 @@ const ConsentForm = () => {
         setLoading(false);
     }
 
-  return (
+    if (validated === null) {return <div className="text-center p-10 text-white-600">Validating link...</div>;}
+
+    // ❌ Invalid token
+    if (validated === false) {
+        return <UnauthConsent err={err}/>
+    }
+
+    return (
     <section className="c-space my-20" id="consent">
         <div className="relative min-h-screen flex items-center justify-center flex-col py-10">
             <img src="/assets/terminal-logo.png" alt="terminal background" className="absolute inset-0 w-full h-full object-cover"/>

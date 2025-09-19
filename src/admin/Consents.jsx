@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import { format } from "date-fns"
 
 const Consents = () => {
     const theadClass = "border border-gray-300 px-4 py-2 text-white-600"
     const [consents, setConsents] = useState([]);
+    const [loaded, setLoaded] = useState([])
     const loadConsents = async (e) => {
         const response = await fetch("https://9llxstbhji.execute-api.eu-north-1.amazonaws.com/dev",
             {
@@ -18,6 +19,7 @@ const Consents = () => {
 
         const data = await response.json()
         setConsents(data.consents);
+        setLoaded(true)
     }
 
     useEffect(() =>{
@@ -25,8 +27,7 @@ const Consents = () => {
     },[])
     return (
         <div>
-
-            <h4 className="text-white-600">Consent</h4>
+            <h3 className="text-white-600">Consent</h3>
             <section className="c-space my-20" id="consents">
                 {consents.length > 0 && (
                     <div className="overflow-x-auto">
@@ -124,9 +125,13 @@ const Consents = () => {
                         </div>
                     )
                 }
-                {consents.length < 1 && (
+                {consents.length < 1 && !setLoaded &&(
                     <p className="text-white-600 text-3xl">Loading...</p>
                 )} 
+
+                {consents.length < 1 && setLoaded &&(
+                    <p className="text-white-600 text-3xl">No consents found</p>
+                )}
             </section>
         </div>
     )

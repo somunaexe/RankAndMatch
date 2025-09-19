@@ -6,7 +6,7 @@ const Interests = () => {
     const [interests, setInterests] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [topicId, setTopicId] = useState("")
-    const [role, setRole] = useState("")
+    const [role, setRole] = useState("judge")
     const [currentInterestId, setCurrentInterestId] = useState("")
     const [timestamp, setTimestamp] = useState('')
     const [email, setEmail] = useState('')
@@ -28,26 +28,28 @@ const Interests = () => {
         const sortedInterests = data.interests.sort((a,b) => new Date(a.timestamp) - new Date(b.timestamp))
         console.log(sortedInterests)
         setInterests(sortedInterests);
+        // setLoaded(false)
     }
 
     const requestConsent = async(e) => {
-        console.log(`${currentInterestId},\n ${email},\n${timestamp}, \n${topicId}\n${role}`)
-        fetch("https://friendly-system-j6qjvg95j7qhjp94-3000.app.github.dev/admin",
+        e.preventDefault()
+        const currentTime = new Date().toISOString()
+        console.log(`${currentInterestId},\n ${email},\n${currentTime}, \n${topicId}\n, ${role}`)
+//https://friendly-system-j6qjvg95j7qhjp94-3000.app.github.dev
+        await fetch(`${import.meta.env.VITE_API_URL}/admin`,
             {
                 method: "POST",
                 headers: { "Content-Type" : "application/json" },
-                body: JSON.stringify({interestId: currentInterestId, timestamp: timestamp, email: email, topicId: topicId.trim(), role: role})
+                body: JSON.stringify({interestId: currentInterestId, email: email, topicId: topicId.trim(), role: role, currentTime: currentTime})
             }
         ).then(async (res) => {
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                const data = await res.json();
-                setConsentMessage(data.message || "No response");
-            })
-            .catch(err => console.error("Error:", err));
-        setEmail('')
+            const data = await res.json();
+            setConsentMessage(data.message || "No response");
+        }).catch(err => console.error("Error:", err));
         setTimestamp('')
         setTopicId('')
-        setRole('')
+        setRole('judge')
     }
 
     useEffect(() =>{
@@ -66,7 +68,7 @@ const Interests = () => {
                             setModalIsOpen(false)
                             setCurrentInterestId('')
                             setTopicId('')
-                            setRole('')
+                            setRole('judge')
                             setEmail('')
                             setTimestamp('')
                         }}
@@ -74,7 +76,7 @@ const Interests = () => {
                         x
                     </button>
                     <form className="mt-12 flex flex-col space-y-7 z-10 relative">
-                        <p>{consentMessage}</p>
+                        <p className="text-green-500">{consentMessage}</p>
                         <label className="space-y-3">
                             <p className="field-label">Topic ID <span className='text-red-500'>*</span></p>
                             <input type="text" name="id" value={topicId} onChange={(e) => setTopicId(e.target.value)} required 
@@ -87,8 +89,7 @@ const Interests = () => {
                                 name="role" value={role} onChange={(e) => setRole(e.target.value)} required 
                                 className="field-input focus:border-gray-500 focus:outline-none focus:border-2 transition-[border-width] duration-100 ease-in-out"
                             >
-                                <option value="">- - - Pick a role - - -</option>
-                                <option value="judges">Judge</option>
+                                <option value="judge">Judge</option>
                                 <option value="contestant">Contestant</option>
                             </select>
                         </label>
@@ -133,7 +134,6 @@ const Interests = () => {
                                                             setCurrentInterestId(interestId)
                                                             setModalIsOpen(true)
                                                             setEmail(email)
-                                                            setTimestamp(timestamp)
                                                         }}
                                                     >Cast?</button>
                                                 </div>
@@ -170,6 +170,10 @@ const Interests = () => {
                 {interests.length < 1 && (
                     <p className="text-white-600 text-3xl">Loading...</p>
                 )} 
+
+                {/* {interests.length < 1 && setLoaded &&(
+                    <p className="text-white-600 text-3xl">No interests found</p>
+                )}  */}
             </section>
         </div>
     )
