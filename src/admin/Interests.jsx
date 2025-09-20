@@ -50,7 +50,7 @@ const Interests = () => {
         }).catch(err => console.error("Error:", err));
         setTimestamp('')
         setTopicId('')
-        setRole('judge')
+        setRole('judges')
     }
 
     useEffect(() =>{
@@ -90,8 +90,8 @@ const Interests = () => {
                                 name="role" value={role} onChange={(e) => setRole(e.target.value)} required 
                                 className="field-input focus:border-gray-500 focus:outline-none focus:border-2 transition-[border-width] duration-100 ease-in-out"
                             >
-                                <option value="judge">Judge</option>
-                                <option value="contestant">Contestant</option>
+                                <option value="judges">Judge</option>
+                                <option value="contestants">Contestant</option>
                             </select>
                         </label>
 
