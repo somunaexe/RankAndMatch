@@ -6,21 +6,32 @@ dotenv.config();
 const app = express()
 // Allow requests from your frontend origin
 app.use(cors({
-  origin: 'https://friendly-system-j6qjvg95j7qhjp94-5173.app.github.dev',
+  origin: "*",
   methods:['GET','OPTIONS','POST'],
+  allowedHeaders: ['Content-Type'],
   credentials: true
 }));
 
-app.options('*', (req, res) => {
-  res.header('Access-Control-Allow-Origin', 'https://friendly-system-j6qjvg95j7qhjp94-5173.app.github.dev');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  res.sendStatus(200);
+app.use((req, res, next) => {
+  console.log(`Incoming ${req.method} request to ${req.path}`);
+  console.log('Origin header:', req.headers.origin);
+  next();
 });
 
 app.use(express.json())
 
-app.post('/admin', async (req, res) =>{
+app.options('/api/request', cors({
+  origin: process.env.VITE_FRONT_URL,
+  methods: ['POST'],
+  allowedHeaders: ['Content-Type'],
+  credentials: true
+}));
+
+app.get('/api/request',(req,res) =>{
+    res.send('message')
+})
+
+app.post('/api/request', async (req, res) =>{
     console.log('Request body:', req.body); // <--- log incoming data
 
     try {
@@ -32,6 +43,7 @@ app.post('/admin', async (req, res) =>{
             success: false, error: "Missing required parameters",
             });
         }
+
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
@@ -75,4 +87,4 @@ app.post('/admin', async (req, res) =>{
     }
 })
 
-app.listen(3000, () => console.log(`Server running on port 3000`))
+app.listen(5000, () => console.log(`Server running on port 5000`))
