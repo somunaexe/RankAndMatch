@@ -6,7 +6,7 @@ const Interests = () => {
     const [interests, setInterests] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [topicId, setTopicId] = useState("")
-    const [role, setRole] = useState("judge")
+    const [role, setRole] = useState("judges")
     const [currentInterestId, setCurrentInterestId] = useState("")
     const [timestamp, setTimestamp] = useState('')
     const [email, setEmail] = useState('')
@@ -69,7 +69,7 @@ const Interests = () => {
                             setModalIsOpen(false)
                             setCurrentInterestId('')
                             setTopicId('')
-                            setRole('judge')
+                            setRole('judges')
                             setEmail('')
                             setTimestamp('')
                         }}
@@ -92,6 +92,7 @@ const Interests = () => {
                             >
                                 <option value="judges">Judge</option>
                                 <option value="contestants">Contestant</option>
+                                <option value="crew">Crew</option>
                             </select>
                         </label>
 
