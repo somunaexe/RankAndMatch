@@ -1,6 +1,6 @@
 import Navbar from './sections/Navbar'
 import { navLinks } from "./constants/index.js"
-// import Hero from './sections/Hero'
+import Hero from './sections/Hero'
 // import About from './sections/About'
 // import Projects from './sections/Projects'
 // import Reviews from './sections/Reviews'

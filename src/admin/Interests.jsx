@@ -35,8 +35,7 @@ const Interests = () => {
         e.preventDefault()
         const currentTime = new Date().toISOString()
         console.log(`${currentInterestId},\n ${email},\n${currentTime}, \n${topicId}\n, ${role}`)
-        // const API_URL = import.meta.env.VITE_API_URL || "https://rankandmatch.com";
-        // console.log(API_URL)
+        
         await fetch("https://x12ex8za7c.execute-api.eu-north-1.amazonaws.com/dev/",
             {
                 method: "POST",

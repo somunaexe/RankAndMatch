@@ -61,6 +61,8 @@ const Contact = () => {
 
   return (
     <section className="c-space my-20" id="join">
+            <img src="assets/email-ban.png" alt="logos" className='relative mx-auto'/>
+
         <div className="relative min-h-screen flex items-center justify-center flex-col py-10">
             <img src="/assets/terminal-logo.png" alt="terminal background" className="absolute inset-0 w-full h-full object-cover"/>
             
