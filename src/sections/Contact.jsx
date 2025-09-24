@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-
+import DVDLogo from '../components/DVDLogo.jsx';
 const Contact = () => {
     const formRef = useRef();
     const join = document.getElementById("join");
@@ -61,10 +61,13 @@ const Contact = () => {
 
   return (
     <section className="c-space my-20" id="join">
-        <div className='flex justify-center items-center flex-row max-w-full overflow-hidden'>
-            <img src="assets/stamp-nobg.png" alt="stamp" className='flex-shrink min-w-0 h-auto'/>
-            <img src="assets/name-nobg.png" alt="name" className='flex-shrink min-w-0 h-auto'/>
-            <img src="assets/sec-nobg.png" alt="sec logo" className='flex-shrink min-w-0 h-auto'/>
+
+        <div className='relative flex justify-center items-center flex-row max-w-full overflow-hidden'>
+            {/* <img src="assets/stamp-nobg.png" alt="stamp" className='flex-shrink min-w-0 h-auto'/> */}
+            <img src="assets/name-nobg.png" alt="name" className='flex-shrink min-w-0 w-100 h-auto'/>
+            {/* <img src="assets/sec-nobg.png" alt="sec logo" className='flex-shrink min-w-0 h-auto'/> */}
+            <DVDLogo />
+
         </div>
             
 
