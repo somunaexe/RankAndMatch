@@ -12,6 +12,7 @@ const Contact = () => {
         phoneNumber: '',
         social: '',
         allergies: '',
+        takes: '',
     })
 
     
@@ -32,6 +33,7 @@ const Contact = () => {
             phoneNumber: form.phoneNumber.trim(),
             social: form.social.trim() || '',
             allergies: form.allergies.trim() || '',
+            takes: form.takes.trim() || '',
         }
         
         const response = await fetch("https://9rbgl7kyu7.execute-api.eu-north-1.amazonaws.com/dev",
@@ -54,6 +56,7 @@ const Contact = () => {
             phoneNumber: "",
             social: "",
             allergies: "",
+            takes: "",
         });
 
         setLoading(false);
@@ -63,11 +66,8 @@ const Contact = () => {
     <section className="c-space my-20" id="join">
 
         <div className='relative flex justify-center items-center flex-row max-w-full overflow-hidden'>
-            {/* <img src="assets/stamp-nobg.png" alt="stamp" className='flex-shrink min-w-0 h-auto'/> */}
             <img src="assets/name-nobg.png" alt="name" className='flex-shrink min-w-0 w-100 h-auto'/>
-            {/* <img src="assets/sec-nobg.png" alt="sec logo" className='flex-shrink min-w-0 h-auto'/> */}
             <DVDLogo />
-
         </div>
             
 
@@ -128,6 +128,13 @@ const Contact = () => {
                         />
                     </label>
 
+                    <label className="space-y-3">
+                        <p className="field-label">Hot takes</p>
+                        <textarea type="text" name="takes" value={form.takes} onChange={handleChange} rows={5} 
+                            className="field-input focus:border-gray-500 focus:outline-none focus:border-2 transition-[border-width] duration-100 ease-in-out" 
+                            placeholder="Please write your 3 hot takes, each on a new line"
+                        />
+                    </label>
                     <button className="field-btn hover:bg-gray-300" type="submit" disabled={loading}>
                         {loading ? 'Sending...' : 'Show your interest'}
                         <img src="/assets/arrow-up.png" alt="arrow-up" className="field-btn_arrow"/>
