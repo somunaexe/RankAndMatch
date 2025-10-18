@@ -44,7 +44,7 @@ const Consents = () => {
                                         <th className={`${theadClass}`}>S/N</th>
                                         <th className={`${theadClass}`}>Full Name</th>
                                         <th className={`${theadClass}`}>Time Consented</th>
-                                        <th className={`${theadClass}`}>Topic(s)</th>
+                                        {/* <th className={`${theadClass}`}>Topic(s)</th> */}
                                         <th className={`${theadClass}`}>Role</th>
                                         <th className={`${theadClass}`}>Age</th>
                                         <th className={`${theadClass}`}>Email</th>
@@ -71,7 +71,7 @@ const Consents = () => {
                                             <td className={`${theadClass}`}> 
                                                 {format(new Date(timestamp), "eeee, MMM d, yyyy, HH:mm:ss")}
                                             </td>
-                                            <td className={`${theadClass}`}>{topic}</td>
+                                            {/* <td className={`${theadClass}`}>{topic}</td> */}
                                             <td className={`${theadClass}`}>{role}</td>
                                             <td className={
                                                 `${Number(age) < 18 ? 
