@@ -88,9 +88,27 @@ const Topics = () => {
                                             <td className={`${theadClass}`}>{matchUploaded ? 'Yes' : 'No'}</td>
 
                                             {/* CREWMATES AND CASTING INFORMATION */}
-                                            <td className={`${theadClass}`}>{judges.length > 0 ? judges.join(',\n ') : 'No judges casted'}</td>
-                                            <td className={`${theadClass}`}>{contestants.length > 0 ? contestants.join(',\n ') : 'No contestants casted'}</td>
-                                            <td className={`${theadClass}`}>{crew.length > 0 ? crew.join(',\n') : 'No crewmates gathered'}</td>
+                                            <td className={`${theadClass}`}>
+                                                {judges.length > 0 ? (
+                                                    judges.map((name, index) => <p key={index}>{name},</p>)
+                                                ) : (
+                                                    <p>No judges casted</p>
+                                                )}
+                                            </td>
+                                            <td className={`${theadClass}`}>
+                                                {contestants.length > 0 ? (
+                                                    contestants.map((name, index) => <p key={index}>{name},</p>)
+                                                ) : (
+                                                    <p>No contestants casted</p>
+                                                )}
+                                            </td>
+                                            <td className={`${theadClass}`}>
+                                                {crew.length > 0 ? (
+                                                    crew.map((name, index) => <p key={index}>{name},</p>)
+                                                ) : (
+                                                    <p>No crew casted</p>
+                                                )}
+                                            </td>
                                         </tr>
                                     )
                                 })}
