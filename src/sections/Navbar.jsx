@@ -10,7 +10,7 @@ const Navbar = ({navLinks}) => {
             <ul className="nav-ul">
                 {navLinks.map(({id, href, name }) => (
                     <li key={id} className="nav-li">
-                        <a href={href} className="nav-li_a">{name}</a>
+                        <b><a href={href} className="nav-li_a">{name}</a></b>
                     </li>
                 ))}
             </ul>
@@ -23,7 +23,7 @@ const Navbar = ({navLinks}) => {
                 <div className="flex items-center gap-5">
                     <a 
                         href="/" 
-                        className="text-neutral-400 font-bold text-xl hover:text-white transition-colors">
+                        className="text-neutral-400 font-bold text-xl hover:text-[#f038b271] transition-colors">
                         Rank & Match
                     </a>
                     <Links />
