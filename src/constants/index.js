@@ -1,18 +1,18 @@
 export const navLinks = [
-  // {
-  //   id: 1,
-  //   name: 'Games',
-  //   href: '#games',
-  // },
-  // {
-  //   id: 2,
-  //   name: 'Episodes',
-  //   href: '#episodes',
-  // },
   {
     id: 1,
     name: 'Join a video',
     href: '#join',
+  },
+  {
+    id: 2,
+    name: 'Games',
+    href: '#games',
+  },
+  {
+    id: 3,
+    name: 'Episodes',
+    href: '#episodes',
   },
 ];
 
@@ -53,6 +53,12 @@ export const socialLinks = [
     href: 'https://www.instagram.com/rankandmatch',
     image: '/assets/instagram.png',
   },
+//   {
+//     id: 4,
+//     name: 'Snapchat',
+//     href: 'https://www.snapchat.com/rankandmatch',
+//     image: '/assets/snapchat.png',
+//   },
 ]
 
 export const calculateSizes = (isSmall, isMobile, isTablet) => {

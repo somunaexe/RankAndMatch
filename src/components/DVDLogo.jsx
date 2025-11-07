@@ -1,5 +1,5 @@
 import { nextFriday } from "date-fns";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const DVDLogo = () => {
   const dvdRef = useRef(null);
@@ -65,7 +65,7 @@ const DVDLogo = () => {
   return (
     <img
       ref={dvdRef}
-      src="assets/stamp-nobg.png"
+      src="assets/stamp-logo.png"
       alt="DVD Logo"
       className="absolute w-32 select-none pointer-events-none"
       style={{
