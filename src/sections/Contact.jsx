@@ -91,7 +91,7 @@ const Contact = () => {
 
         <div className='relative flex justify-center items-center flex-row max-w-full overflow-hidden'>
             <img src="assets/black-name-nobg.png" alt="name" className='flex-shrink min-w-0 w-full md:w-1/2 h-auto'/>
-            <DVDLogo />
+            {/* <DVDLogo /> */}
         </div>
             
 
