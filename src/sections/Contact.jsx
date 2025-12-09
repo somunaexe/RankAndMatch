@@ -1,6 +1,7 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import DVDLogo from '../components/DVDLogo.jsx';
-import base64Orders from '../components/FoodOrders.jsx';
+// import base64Orders from '../components/FoodOrders.jsx';
+import ConfirmModal from '../components/ConfirmModal.jsx';
 
 const Contact = () => {
     const formRef = useRef();
@@ -20,6 +21,9 @@ const Contact = () => {
     const [orders, setOrders] = useState([])
     const [spotify, setSpotify] = useState([])
 
+    const orderInputRef = useRef(null);
+    const spotifyInputRef = useRef(null);
+
     const handleChange = ({ target: { name, value }}) => {
         setForm({ ...form, [name]: value })
     }
@@ -27,12 +31,52 @@ const Contact = () => {
     const handleOrderChange = (e) => {
         const orderArray = Array.from(e.target.files)
         setOrders(orderArray)
+        console.log(orders)
     }
 
     const handleSpotifyChange = (e) => {
         const spotifyArray = Array.from(e.target.files)
         setSpotify(spotifyArray)
+        console.log(spotify)
     }
+
+    const [uploading, setUploading] = useState(false)
+    const [uploadedPerc, setUploadedPerc] = useState(0)
+    const handleFileUpload = async (urls, fileSec) => {
+        setUploading(true)
+        await Promise.all(
+            urls.map(async ({ fileName, url }, index) => {
+                let file = null
+
+                if (fileSec == 'orders') {
+                    file = orders.find(f => f.name === fileName);
+                } else if (fileSec == 'spotify'){ 
+                    file = spotify.find(f => f.name === fileName) 
+                }
+                await fetch(url, {
+                    method: "PUT",
+                    body: file
+                });
+                setUploadedPerc(Math.floor(((index + 1)/ urls.length) * 100))
+            })
+        );
+        setUploading(false)
+        setUploadedPerc(0)
+    }
+
+    const [dots, setDots] = useState(1);
+
+    useEffect(() => {
+        if (uploading) { // animate only while ConfirmModal is open
+            const interval = setInterval(() => {
+            setDots(prev => (prev === 3 ? 1 : prev + 1)); // cycles 1 → 2 → 3 → 1
+            }, 500); // change dots every 500ms
+
+            return () => clearInterval(interval); // cleanup when uploading stops
+        } else {
+            setDots(1); // reset when modal closes
+        }
+        }, [uploading]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -50,19 +94,14 @@ const Contact = () => {
             allergies: form.allergies.trim() || '',
             takes: form.takes.trim() || '',
         }
-
-        let basedOrders = []
-        let basedSpotify = []
         let payload = {}
 
         const baseTheOrder = async() => {
-            if (orders.length > 0){ basedOrders = await base64Orders(orders) }
-            if (spotify.length > 0){ basedSpotify = await base64Orders(spotify) }
 
             payload = {
                 ...enquiry,
-                orders: basedOrders,
-                spotify: basedSpotify
+                orderNames: orders.map(order => order.name),
+                spotifyNames: spotify.map(spot => spot.name),
             }
         }
         await baseTheOrder()
@@ -75,9 +114,19 @@ const Contact = () => {
             }
         );
         const data = await response.json();
-        setMessage(data || "");
-        join?.scrollIntoView()
+        console.log(data)
 
+        if (data.orderUrlsKey.length > 0) await handleFileUpload(data.orderUrlsKey, 'orders')
+        if (data.spotifyUrlsKey.length > 0) await handleFileUpload(data.spotifyUrlsKey, 'spotify')
+
+        if (!uploading) {
+            setMessage(
+                typeof data === "string" 
+                ? { message: data } 
+                : data
+            );
+            join?.scrollIntoView()
+        }
         // reset form fields
         setForm({
             name: "",
@@ -91,6 +140,8 @@ const Contact = () => {
 
         setOrders([])
         setSpotify([])
+        if (orderInputRef.current) orderInputRef.current.value = "";
+        if (spotifyInputRef.current) spotifyInputRef.current.value = "";
         setLoading(false);
     }
 
@@ -101,10 +152,19 @@ const Contact = () => {
             <img src="assets/black-name-nobg.png" alt="name" className='flex-shrink min-w-0 w-full md:w-1/2 h-auto'/>
             {/* <DVDLogo /> */}
         </div>
-            
-
+        
+        <ConfirmModal isOpen={uploading} interestKey={0} >
+            <>
+                <p className='text-white'>Uploading{'.'.repeat(dots)} Please don't leave the website</p>
+                <div className="w-full bg-gray-700 h-2 rounded">
+                    <div
+                        className="bg-green-500 h-2 rounded"
+                        style={{ width: `${uploadedPerc}%` }}
+                    />
+                </div>
+            </>
+        </ConfirmModal>
         <div className="relative min-h-screen flex items-center justify-center flex-col py-10 bg-black/90 rounded-lg shadow-2xl backdrop-blur-md">
-            {/* <img src="/assets/terminal-logo.png" alt="terminal background" className="absolute inset-0 w-full h-full object-cover"/> */}
             
             <div className="contact-container">
                 <h3 className="head-text">Join Us</h3>
@@ -172,17 +232,17 @@ const Contact = () => {
                     <label className="space-y-3">
                         <p className="field-label"><b>Food Order History </b></p>
                         <p className='field-label'>Please upload screenshots of your 10 most recent orders from Uber Eats, Deliveroo, and/or Just Eat.<br></br>If it fails to upload, please send it to rankandmatch@gmail.com</p>
-                        <input type="file" accept="image/*,video/*" multiple name="orders" onChange={handleOrderChange} className="field-input" />
+                        <input type="file" accept="image/*,video/*" multiple name="orders" onChange={handleOrderChange} ref={orderInputRef} className="field-input" />
                     </label>
 
-                    {/* <label className="space-y-3">
+                    <label className="space-y-3">
                         <p className="field-label"><b>Spotify Wrapped </b></p>
                         <p className='field-label'>Please upload your Spotify Wrapped recording and Wrapped Top List.<br></br>If it fails to upload, please send it to rankandmatch@gmail.com</p>
-                        <input type="file" accept="image/*,video/*" multiple name="spotify" onChange={handleSpotifyChange} className="field-input" />
-                    </label> */}
+                        <input type="file" accept="image/*,video/*" multiple name="spotify" onChange={handleSpotifyChange} ref={spotifyInputRef} className="field-input" />
+                    </label>
 
                     <button className="field-btn hover:bg-gray-300" type="submit" disabled={loading}>
-                        {loading ? 'Sending...' : 'Show your interest'}
+                        {loading ? 'Sending...' : uploading ? 'Uploading files' : 'Show your interest'}
                         <img src="/assets/arrow-up.png" alt="arrow-up" className="field-btn_arrow"/>
                     </button>
                 </form>
