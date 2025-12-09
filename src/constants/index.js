@@ -4,16 +4,16 @@ export const navLinks = [
     name: 'Join a video',
     href: '#join',
   },
-  {
-    id: 2,
-    name: 'Games',
-    href: '#games',
-  },
-  {
-    id: 3,
-    name: 'Episodes',
-    href: '#episodes',
-  },
+  // {
+  //   id: 2,
+  //   name: 'Games',
+  //   href: '#games',
+  // },
+  // {
+  //   id: 3,
+  //   name: 'Episodes',
+  //   href: '#episodes',
+  // },
 ];
 
 export const adminLinks = [

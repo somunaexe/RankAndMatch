@@ -18,6 +18,7 @@ const Contact = () => {
     })
     
     const [orders, setOrders] = useState([])
+    const [spotify, setSpotify] = useState([])
 
     const handleChange = ({ target: { name, value }}) => {
         setForm({ ...form, [name]: value })
@@ -26,6 +27,11 @@ const Contact = () => {
     const handleOrderChange = (e) => {
         const orderArray = Array.from(e.target.files)
         setOrders(orderArray)
+    }
+
+    const handleSpotifyChange = (e) => {
+        const spotifyArray = Array.from(e.target.files)
+        setSpotify(spotifyArray)
     }
 
     const handleSubmit = async (e) => {
@@ -46,23 +52,29 @@ const Contact = () => {
         }
 
         let basedOrders = []
+        let basedSpotify = []
+        let payload = {}
 
         const baseTheOrder = async() => {
-            basedOrders = await base64Orders(orders)
-            console.log(basedOrders)
+            if (orders.length > 0){ basedOrders = await base64Orders(orders) }
+            if (spotify.length > 0){ basedSpotify = await base64Orders(spotify) }
 
-            const payload = {
+            payload = {
                 ...enquiry,
-                orders: basedOrders
+                orders: basedOrders,
+                spotify: basedSpotify
             }
-            const response = await fetch("https://9rbgl7kyu7.execute-api.eu-north-1.amazonaws.com/dev",
-                {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload),
-                }
-            );
-            const data = await response.json();
+        }
+        await baseTheOrder()
+
+        const response = await fetch("https://9rbgl7kyu7.execute-api.eu-north-1.amazonaws.com/dev",
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            }
+        );
+        const data = await response.json();
         setMessage(data || "");
         join?.scrollIntoView()
 
@@ -78,12 +90,8 @@ const Contact = () => {
         });
 
         setOrders([])
-
+        setSpotify([])
         setLoading(false);
-        }
-        baseTheOrder()
-
-        
     }
 
   return (
@@ -163,8 +171,14 @@ const Contact = () => {
 
                     <label className="space-y-3">
                         <p className="field-label"><b>Food Order History </b></p>
-                        <p className='field-label'>Please upload screenshots of your 10 most recent orders from Uber Eats, Deliveroo, and/or Just Eat.</p>
-                        <input type="file" multiple name="orders" value={form.orders} onChange={handleOrderChange} className="field-input" />
+                        <p className='field-label'>Please upload screenshots of your 10 most recent orders from Uber Eats, Deliveroo, and/or Just Eat.<br></br>If it fails to upload, please send it to rankandmatch@gmail.com</p>
+                        <input type="file" accept="image/*,video/*" multiple name="orders" onChange={handleOrderChange} className="field-input" />
+                    </label>
+
+                    <label className="space-y-3">
+                        <p className="field-label"><b>Spotify Wrapped </b></p>
+                        <p className='field-label'>Please upload your Spotify Wrapped recording and Wrapped Top List.<br></br>If it fails to upload, please send it to rankandmatch@gmail.com</p>
+                        <input type="file" accept="image/*,video/*" multiple name="spotify" onChange={handleSpotifyChange} className="field-input" />
                     </label>
 
                     <button className="field-btn hover:bg-gray-300" type="submit" disabled={loading}>
