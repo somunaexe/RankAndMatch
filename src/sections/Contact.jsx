@@ -175,11 +175,11 @@ const Contact = () => {
                         <input type="file" accept="image/*,video/*" multiple name="orders" onChange={handleOrderChange} className="field-input" />
                     </label>
 
-                    <label className="space-y-3">
+                    {/* <label className="space-y-3">
                         <p className="field-label"><b>Spotify Wrapped </b></p>
                         <p className='field-label'>Please upload your Spotify Wrapped recording and Wrapped Top List.<br></br>If it fails to upload, please send it to rankandmatch@gmail.com</p>
                         <input type="file" accept="image/*,video/*" multiple name="spotify" onChange={handleSpotifyChange} className="field-input" />
-                    </label>
+                    </label> */}
 
                     <button className="field-btn hover:bg-gray-300" type="submit" disabled={loading}>
                         {loading ? 'Sending...' : 'Show your interest'}
