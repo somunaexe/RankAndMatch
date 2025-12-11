@@ -6,8 +6,16 @@ import ConfirmModal from '../components/ConfirmModal.jsx';
 const Contact = () => {
     const formRef = useRef();
     const join = document.getElementById("join");
+
     const [message, setMessage] = useState({});
     const [loading, setLoading] = useState(false)
+    const [orders, setOrders] = useState([])
+    const [spotify, setSpotify] = useState([])
+    const [uploadingItems, setUploadingItems] = useState('')
+    const [uploading, setUploading] = useState(false)
+    const [uploadedPerc, setUploadedPerc] = useState(0)
+    const [dots, setDots] = useState(1);
+
     const [form, setForm] = useState({
         name: '',
         age: '',
@@ -17,9 +25,6 @@ const Contact = () => {
         allergies: '',
         takes: '',
     })
-    
-    const [orders, setOrders] = useState([])
-    const [spotify, setSpotify] = useState([])
 
     const orderInputRef = useRef(null);
     const spotifyInputRef = useRef(null);
@@ -40,31 +45,66 @@ const Contact = () => {
         console.log(spotify)
     }
 
-    const [uploading, setUploading] = useState(false)
-    const [uploadedPerc, setUploadedPerc] = useState(0)
     const handleFileUpload = async (urls, fileSec) => {
         setUploading(true)
-        await Promise.all(
-            urls.map(async ({ fileName, url }, index) => {
-                let file = null
 
-                if (fileSec == 'orders') {
-                    file = orders.find(f => f.name === fileName);
-                } else if (fileSec == 'spotify'){ 
-                    file = spotify.find(f => f.name === fileName) 
-                }
-                await fetch(url, {
-                    method: "PUT",
-                    body: file
-                });
-                setUploadedPerc(Math.floor(((index + 1)/ urls.length) * 100))
+        await Promise.all (
+            urls.map(async ({ fileName, url })=> {
+                return new Promise((resolve, reject) => {
+                    const xhr = new XMLHttpRequest();
+
+                    xhr.open("PUT", url);
+
+                    xhr.upload.onprogress = (event) => {
+                        if (event.lengthComputable) {
+                            const percent = Math.round((event.loaded / event.total) * 100);
+                            setUploadedPerc(percent);
+                        }
+                    };
+
+                    xhr.onload = () => {
+                        setUploadedPerc(0);  // reset bar for next file
+                        resolve(true);        // 🔥 NOW the Promise finishes properly
+                    };
+
+                    xhr.onerror = () => {
+                        alert("Upload failed.");
+                    };
+
+                    let file = null
+                    if (fileSec == 'orders') {
+                        file = orders.find(f => f.name === fileName);
+                        setUploadingItems('orders 🍕')
+                    } else if (fileSec == 'spotify'){ 
+                        file = spotify.find(f => f.name === fileName) 
+                        setUploadingItems('spotify wrapped 🎶')
+                    }
+                    xhr.send(file);
+                })
             })
-        );
+        )
+        
+        
+
+        // await Promise.all(
+        //     urls.map(async ({ fileName, url }, index) => {
+        //         let file = null
+
+        //         if (fileSec == 'orders') {
+        //             file = orders.find(f => f.name === fileName);
+        //         } else if (fileSec == 'spotify'){ 
+        //             file = spotify.find(f => f.name === fileName) 
+        //         }
+        //         await fetch(url, {
+        //             method: "PUT",
+        //             body: file
+        //         });
+        //         setUploadedPerc(Math.floor(((index + 1)/ urls.length) * 100))
+        //     })
+        // );
         setUploading(false)
         setUploadedPerc(0)
     }
-
-    const [dots, setDots] = useState(1);
 
     useEffect(() => {
         if (uploading) { // animate only while ConfirmModal is open
@@ -153,9 +193,9 @@ const Contact = () => {
             {/* <DVDLogo /> */}
         </div>
         
-        <ConfirmModal isOpen={uploading} interestKey={0} >
+        <ConfirmModal isOpen={uploading} interestKey={0}>
             <>
-                <p className='text-white'>Uploading{'.'.repeat(dots)} Please don't leave the website</p>
+                <p className='text-white'>Uploading {uploadingItems}{'.'.repeat(dots)} Please don't leave the website</p>
                 <div className="w-full bg-gray-700 h-2 rounded">
                     <div
                         className="bg-green-500 h-2 rounded"
@@ -165,7 +205,6 @@ const Contact = () => {
             </>
         </ConfirmModal>
         <div className="relative min-h-screen flex items-center justify-center flex-col py-10 bg-black/90 rounded-lg shadow-2xl backdrop-blur-md">
-            
             <div className="contact-container">
                 <h3 className="head-text">Join Us</h3>
                 <p className="text-lg text-white-600 mt-3">
