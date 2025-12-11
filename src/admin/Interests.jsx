@@ -57,10 +57,10 @@ const Interests = () => {
     },[])
 
     return (
-        <div>
-            <section id="interests" className="c-space my-20">
-                <h3 className="head-text">Interests</h3>
-                <hr/><br/>
+        <div id="interests" className="bg-black border rounded-lg mb-20">
+            <section className="c-space my-10">
+                <h3 className="head-text text-center">Interests</h3>
+                <br/>
                 
                 <ConfirmModal isOpen={modalIsOpen}>
                     <button type="button" className="bg-red-500 font-medium text-white h-8 w-8 rounded-full flex items-center justify-center" 

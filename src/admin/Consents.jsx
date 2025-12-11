@@ -26,9 +26,10 @@ const Consents = () => {
         loadConsents();
     },[])
     return (
-        <div>
-            <h3 className="text-white-600">Consent</h3>
-            <section className="c-space my-20" id="consents">
+        <div className="bg-black border rounded-lg mb-20">
+            <section id="consents" className="c-space my-10">
+                <h3 className="head-text text-center">Consents</h3>
+                <br/>
                 {consents.length > 0 && (
                     <div className="overflow-x-auto">
                         {/* <input type="text" name="search" placeholder="Search for an interest" 

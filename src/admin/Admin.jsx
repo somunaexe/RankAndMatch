@@ -14,6 +14,7 @@ const Admin = () => {
     }
     return (
         <main className='max-w-7xl mx-auto'>
+        <div className='py-20'></div>
             {!passed && 
                 <form>
                     <label className="space-y-3">

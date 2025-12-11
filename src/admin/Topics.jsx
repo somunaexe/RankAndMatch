@@ -29,10 +29,10 @@ const Topics = () => {
     },[])
 
     return (
-        <div>
-            <section id="topics" className="c-space my-20">
-                <h3 className="head-text">Topics</h3>
-                <hr/><br/>
+        <div className="bg-black border rounded-lg mb-20">
+            <section id="topics" className="c-space my-10">
+                <h3 className="head-text text-center">Topics</h3>
+                <br/>
                 {topics.length > 0 && (
                     <div className="overflow-x-auto">
                         {/* <input type="text" name="search" placeholder="Search for an interest" 
