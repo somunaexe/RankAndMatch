@@ -209,13 +209,12 @@ const Contact = () => {
                 <h3 className="head-text">Join Us</h3>
                 <p className="text-lg text-white-600 mt-3">
                     If you would like to be part of a YouTube video as a Rank and Match judge or contestant, please fill the form below❗️
-                </p>
-
+                </p><br></br>
+                <p className='text-white-600'>If you haven't read the onboarding sheet, please <a className='font-semibold text-orange-500 hover:text-orange-400' href='https://docs.google.com/document/d/1iujC1jHTHEVaA7ThfKiUDzcZGGab2137IpTxAjiGhHE/edit?tab=t.0#heading=h.fxnb7f3ekm4h' target='_blank'>click here</a> so you know what to expect and how to apply properly.</p>
                 {/* CONFIRMATION OR FAILURE MESSAGE */}
                 {message && (
                     <p id="message" className={`text-lg ${"message" in message ? "text-green-500" : "text-red-500"} mt-3 font-semibold`}>{message.message || message.error || ""}</p>
                 )}
-
                 
                 <form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col space-y-7 z-10 relative">
                     <label className="space-y-3">

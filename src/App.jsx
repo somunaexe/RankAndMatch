@@ -1,22 +1,12 @@
 import Navbar from './sections/Navbar'
 import { navLinks } from "./constants/index.js"
-import Hero from './sections/Hero'
-// import About from './sections/About'
-// import Projects from './sections/Projects'
-// import Reviews from './sections/Reviews'
 import Contact from './sections/Contact'
 import Footer from './sections/Footer'
-// import Experience from './sections/Experience'
 const App = () => {
   return (
     <main className="max-w-7xl mx-auto">
       <div className="absolute bg-[url('/assets/cherry.gif')] w-1/2 h-1/2 bg-cover bg-no-repeat" ></div>
       <Navbar navLinks={navLinks} admin={false}/>
-      {/* <Hero /> */}
-      {/* <About /> */}
-      {/* <Projects /> */}
-      {/* <Reviews />
-      <Experience />*/}
       <Contact /> 
       <Footer />
     </main>

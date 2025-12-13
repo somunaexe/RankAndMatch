@@ -6,13 +6,32 @@ const ConsentForm = () => {
     const [params] = useSearchParams()
     const [validated, setValidated] = useState(null)
     const [err, setErr] = useState(null)
-    // console.log(validated)
+    const [interestDetails, setInterestDetails] = useState(null)
+    const formRef = useRef();
+    const consent = document.getElementById("consent");
+    const [message, setMessage] = useState({});
+    const [loading, setLoading] = useState(false)
+
+        const [form, setForm] = useState({
+        name: '',
+        age: '',
+        email: '',
+        phoneNumber: '',
+        social: '',
+        allergies: '',
+        // GUARDIAN'S INFORMATION
+        guardianName: '',
+        guardianAge: '',
+        guardianEmail: '',
+        guardianPhoneNumber: '',
+        guardianAllergies: '',
+    })
+
     const validateToken = async () => {
         const interest = params.get("interestId");
         const timeInvited = params.get("timeInvited");
         const topicId = params.get("topicId")
         const role = params.get("role")
-        console.log(validated)
 
         if (!interest || !timeInvited || !topicId || !role) {
             setValidated(false); // missing required params
@@ -41,7 +60,8 @@ const ConsentForm = () => {
 
             // make sure API returns a boolean
             console.log(data)
-            setValidated(!!data.interestIdValid);
+            setValidated(!!data.interestIdList);
+            setInterestDetails(data.interestIdList[0]);
         } catch (err) {
             console.error("Token validation failed:", err);
             setErr(err)
@@ -53,24 +73,19 @@ const ConsentForm = () => {
         validateToken()
     },[params])
     
-    const formRef = useRef();
-    const consent = document.getElementById("consent");
-    const [message, setMessage] = useState({});
-    const [loading, setLoading] = useState(false)
-    const [form, setForm] = useState({
-        name: '',
-        age: '',
-        email: '',
-        phoneNumber: '',
-        social: '',
-        allergies: '',
-        // GUARDIAN'S INFORMATION
-        guardianName: '',
-        guardianAge: '',
-        guardianEmail: '',
-        guardianPhoneNumber: '',
-        guardianAllergies: '',
-    })
+    useEffect(() => {
+        console.log(interestDetails)
+        setForm({
+            name: interestDetails?.fullName || "",
+            age: interestDetails?.age || "",
+            email: interestDetails?.email || "",
+            phoneNumber: interestDetails?.phoneNumber || "",
+            social: interestDetails?.social || "",
+            allergies: interestDetails?.allergies || "",
+        });
+    }, [interestDetails]);
+
+
     const handleChange = ({ target: { name, value }}) => {
         setForm({ ...form, [name]: value })
     }
@@ -144,14 +159,14 @@ const ConsentForm = () => {
 
     return (
     <section className="c-space my-20" id="consent">
-        <div className="relative min-h-screen flex items-center justify-center flex-col py-10">
-            <img src="/assets/terminal-logo.png" alt="terminal background" className="absolute inset-0 w-full h-full object-cover"/>
+        <div className="relative min-h-screen flex items-center justify-center flex-col py-10 bg-black/90 rounded-lg shadow-2xl backdrop-blur-md">
             
             <div className="contact-container">
                 <h3 className="head-text">✨Consent to shoot✨</h3>
-                <p className="text-lg text-white-600 text-justify mt-3">
-                    We know you've told as all this before 😅 but please fill the form to confirm your casting. <br/><br/><span className='font-semibold'>Please bring your ID on the day to confirm your identity❗️</span>
-                </p>
+                <p className="text-lg text-justify mt-3 text-white-600">We know you've told as all this before 😅 but please fill the form to confirm your casting.</p>
+                <br></br>
+                <p className='font-semibold text-white-600'>The guarantor should please bring his/her ID on the day to confirm their identity❗️</p>
+                
 
                 {/* CONFIRMATION OR FAILURE MESSAGE */}
                 {message && (
@@ -241,7 +256,7 @@ const ConsentForm = () => {
                     }
                     
                     <button className="field-btn hover:bg-gray-300 disabled:bg-black-600" type="submit" disabled={loading || (Number(form.age < 18) && Number(form.guardianAge < 18))}>
-                        {loading ? 'Sending...' : 'Receive shoot details'}
+                        {loading ? 'Sending...' : 'I agree to shoot 📹'}
                         <img src="/assets/arrow-up.png" alt="arrow-up" className="field-btn_arrow"/>
                     </button>
                 </form>

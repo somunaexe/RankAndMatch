@@ -11,6 +11,9 @@
 body {
   /* background: #f038b271; */
   background: linear-gradient(180deg, #f038b271, #f038b271, #000000);
+  background-repeat: no-repeat;
+  background-size: cover;
+
   font-family: 'General Sans', sans-serif;
 }
 
