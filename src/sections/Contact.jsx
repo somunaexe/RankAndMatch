@@ -189,7 +189,7 @@ const Contact = () => {
     <section className="c-space my-20" id="join">
 
         <div className='relative py-10 flex justify-center items-center flex-row max-w-full overflow-hidden'>
-            <video width="600" autoPlay muted loop>
+            <video width="600" autoPlay muted loop playsInline webkit-playsinline >
                 <source src="assets/website-comp.mp4" type="video/mp4"/>
             </video>
             <img src="assets/orange-name-nobg.png" alt="name" className='absolute flex-shrink min-w-0 w-full md:w-1/2 h-auto'/>
