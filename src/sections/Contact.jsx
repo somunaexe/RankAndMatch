@@ -188,8 +188,11 @@ const Contact = () => {
   return (
     <section className="c-space my-20" id="join">
 
-        <div className='relative flex justify-center items-center flex-row max-w-full overflow-hidden'>
-            <img src="assets/black-name-nobg.png" alt="name" className='flex-shrink min-w-0 w-full md:w-1/2 h-auto'/>
+        <div className='relative py-10 flex justify-center items-center flex-row max-w-full overflow-hidden'>
+            <video width="600" autoPlay muted loop>
+                <source src="assets/website-comp.mp4" type="video/mp4"/>
+            </video>
+            <img src="assets/orange-name-nobg.png" alt="name" className='absolute flex-shrink min-w-0 w-full md:w-1/2 h-auto'/>
             {/* <DVDLogo /> */}
         </div>
         
@@ -204,6 +207,7 @@ const Contact = () => {
                 </div>
             </>
         </ConfirmModal>
+
         <div className="relative min-h-screen flex items-center justify-center flex-col py-10 bg-black/90 rounded-lg shadow-2xl backdrop-blur-md">
             <div className="contact-container">
                 <h3 className="head-text">Join Us</h3>
