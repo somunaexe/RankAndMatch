@@ -46,58 +46,52 @@ const Topics = () => {
                                 <thead>
                                     <tr>
                                         <th className={`${theadClass}`}>S/N</th>
-                                        <th className={`${theadClass}`}>Topic Name</th>
-                                        <th className={`${theadClass}`}>Ranking Location 📍</th>
-                                        <th className={`${theadClass}`}>Ranked</th>
-                                        <th className={`${theadClass}`}>Ranking Uploaded</th>
-                                        <th className={`${theadClass}`}>Matching Location 📍</th>
-                                        <th className={`${theadClass}`}>Matched</th>
-                                        <th className={`${theadClass}`}>Matching Uploaded</th>
+                                        <th className={`${theadClass}`}>Topic</th>
+                                        <th className={`${theadClass}`}>Special</th>
+                                        <th className={`${theadClass}`}>Shot</th>
+                                        <th className={`${theadClass}`}>Location</th>
+                                        <th className={`${theadClass}`}>Time</th>
+                                        <th className={`${theadClass}`}>Uploaded</th>
                                         <th className={`${theadClass}`}>Judges</th>
                                         <th className={`${theadClass}`}>Contestants</th>
-                                        <th className={`${theadClass}`}>Crew</th>{/** 11 */}
+                                        <th className={`${theadClass}`}>Crew</th>
+                                        <th className={`${theadClass}`}>Special Members</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {topics.map((topicParam, index) => {
-                                    const {serialNumber, Topic, ranked, rankShotAt, rankShotWhen, rankUploaded, matched, matchShotAt, matchShotWhen, matchUploaded,judges, contestants, crew} = topicParam;
+                                    const {serialNumber, Topic, Special, Shot, Location, Time, Uploaded, judges, contestants, crew, castMembers} = topicParam;
                                     
                                     return (
                                         <tr key={serialNumber || index}>
-                                            <td className={`${theadClass}`}>
-                                                <input type='number' className="w-12 rounded-md text-center text-black" value={serialNumber}/>
-                                            </td>
+                                            <td className={`${theadClass}`}>{serialNumber}</td>
                                             <td className={`${theadClass}`}>{Topic}</td>
-                                            
-                                            {/* RANKING INFORMATION */}
-                                            <td className={`${theadClass}`}> 
-                                                {rankShotAt ? `${rankShotAt} ${format(new Date(rankShotWhen), "eeee, MMM d, yyyy, HH:mm:ss")}`
-                                                : 'Location & Time TBC'
-                                                }
-                                            </td>
-                                            <td className={`${theadClass}`}>{ranked ? 'Yes' : 'No'}</td>
-                                            <td className={`${theadClass}`}>{rankUploaded ? 'Yes' : 'No'}</td>
+                                            <td className={`${theadClass}`}>{Special ? 'Yes' : 'No'}</td>
+                                            <td className={`${theadClass}`}>{Shot ? 'Yes' : 'No'}</td>
 
-                                            {/* MATCHING INFORMATION */}
                                             <td className={`${theadClass}`}> 
-                                                {matchShotAt ? `${matchShotAt} ${format(new Date(matchShotWhen), "eeee, MMM d, yyyy, HH:mm:ss")}`
-                                                : 'Location & Time TBC'
+                                                {Location ? `${Location}`
+                                                : 'Location TBC'
                                                 }
                                             </td>
-                                            <td className={`${theadClass}`}>{matched ? 'Yes' : 'No'}</td>
-                                            <td className={`${theadClass}`}>{matchUploaded ? 'Yes' : 'No'}</td>
+                                            <td className={`${theadClass}`}> 
+                                                {Time ? `${format(new Date(Time), "eeee, MMM d, yyyy, HH:mm:ss")}`
+                                                : 'Time TBC'
+                                                }
+                                            </td>
+                                            <td className={`${theadClass}`}>{Uploaded ? 'Yes' : 'No'}</td>
 
                                             {/* CREWMATES AND CASTING INFORMATION */}
                                             <td className={`${theadClass}`}>
-                                                {judges.length > 0 ? (
-                                                    judges.map((name, index) => <p key={index}>{name},</p>)
+                                                {judges?.length > 0 ? (
+                                                    judges?.map((name, index) => <p key={index}>{name},</p>)
                                                 ) : (
                                                     <p>No judges casted</p>
                                                 )}
                                             </td>
                                             <td className={`${theadClass}`}>
-                                                {contestants.length > 0 ? (
-                                                    contestants.map((name, index) => <p key={index}>{name},</p>)
+                                                {contestants?.length > 0 ? (
+                                                    contestants?.map((name, index) => <p key={index}>{name},</p>)
                                                 ) : (
                                                     <p>No contestants casted</p>
                                                 )}
@@ -106,7 +100,14 @@ const Topics = () => {
                                                 {crew.length > 0 ? (
                                                     crew.map((name, index) => <p key={index}>{name},</p>)
                                                 ) : (
-                                                    <p>No crew casted</p>
+                                                    <p>No crew</p>
+                                                )}
+                                            </td>
+                                            <td className={`${theadClass}`}>
+                                                {castMembers?.length > 0 ? (
+                                                    castMembers?.map((name, index) => <p key={index}>{name},</p>)
+                                                ) : (
+                                                    <p>No special members casted</p>
                                                 )}
                                             </td>
                                         </tr>
