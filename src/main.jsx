@@ -5,6 +5,7 @@ import App from './App.jsx'
 import Admin from './admin/Admin.jsx'
 import { BrowserRouter, Routes, Route } from 'react-router'
 import ConsentsForm from './sections/ConsentForm.jsx'
+import TopicVideos from './sections/TopicVideos.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -15,6 +16,8 @@ createRoot(document.getElementById('root')).render(
 
         {/* Fallback / Default Route */}
         <Route path="*" element={<App />} />
+
+        <Route path="/topics" element={<TopicVideos />} />
 
         {/* Page for casted members */}
         <Route path="consent" element={<ConsentsForm />} />

@@ -1,16 +1,18 @@
 import { useState } from "react"
 // import { navLinks } from "../constants/index.js"
 import Links from "../components/Links.jsx"
+import { Link } from "react-router"
 
 const Navbar = ({navLinks}) => {
     const [isOpen, setIsOpen] = useState(false)
     const toggleMenu = () => setIsOpen((prevIsOpen) => !prevIsOpen)
+    
     const NavItems = () => {
         return (
             <ul className="nav-ul">
                 {navLinks.map(({id, href, name }) => (
                     <li key={id} className="nav-li">
-                        <b><a href={href} className="nav-li_a">{name}</a></b>
+                        <b><Link to={href} className="nav-li_a">{name}</Link></b>
                     </li>
                 ))}
             </ul>
