@@ -91,6 +91,7 @@ const Interests = () => {
                             >
                                 <option value="judges">Judge</option>
                                 <option value="contestants">Contestant</option>
+                                <option value="castMembers">Cast Member</option>
                                 <option value="crew">Crew</option>
                             </select>
                         </label>
