@@ -10,12 +10,13 @@ The official source code for **Rank and Match** — a React single-page applicat
 - [React 18](https://react.dev/) + [Vite](https://vitejs.dev/) — app shell and build tooling
 - [React Router](https://reactrouter.com/) — client-side routing
 - [Tailwind CSS](https://tailwindcss.com/) — utility-first styling
-- [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) + [Drei](https://github.com/pmndrs/drei) + [Three.js](https://threejs.org/) — 3D rendering
-- [react-globe.gl](https://github.com/vasturiano/react-globe.gl) — interactive 3D globe visualisation
-- [GSAP](https://gsap.com/) (`@gsap/react`) — animation
-- [Leva](https://github.com/pmndrs/leva) — real-time 3D scene tuning controls
-- [maath](https://github.com/pmndrs/maath) — math helpers for 3D/animation
 - [date-fns](https://date-fns.org/), [file-saver](https://github.com/eligrey/FileSaver.js/), [react-responsive](https://github.com/yocontra/react-responsive)
+<!-- - [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) + [Drei](https://github.com/pmndrs/drei) + [Three.js](https://threejs.org/) — 3D rendering
+- [react-globe.gl](https://github.com/vasturiano/react-globe.gl) — interactive 3D globe visualisation -->
+<!-- - [GSAP](https://gsap.com/) (`@gsap/react`) — animation -->
+<!-- - [Leva](https://github.com/pmndrs/leva) — real-time 3D scene tuning controls -->
+<!-- - [maath](https://github.com/pmndrs/maath) — math helpers for 3D/animation -->
+
 
 **Backend / Infra**
 - [Express 5](https://expressjs.com/) — API server
